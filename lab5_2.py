@@ -1,13 +1,13 @@
-from machine import ADC, Pin
-import time
+#Include the library files
+from machine import ADC, Pin,PWM
+from time import sleep
 
-# Define the ADC pin
-adc_pin = Pin(25, Pin.IN)
-
-# Create ADC object
-adc = ADC(25)
+led = PWM(Pin(12))#Include the LED pin
+potentiometer = ADC(25)#Include the potentiometer pin
+led.freq(1000)#Set the frequency
 
 while True:
-    analog_value = adc.read()
-    print("Analog Value:", analog_value)
-    time.sleep(0.1)
+    value = potentiometer.read_u16()#Get the values
+    print(value)#Print value on the shell
+    led.duty_u16(value)#Turn the LED ON and OFF
+    sleep(0.2)#Set the delay time
